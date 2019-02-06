@@ -1,28 +1,32 @@
 /* global Parse*/
 const PCGeocoder = require("@panda-clouds/geocoder")
 const PCAddressFormatter = require("@panda-clouds/address-formatter")
-
+/* eslint-disable no-console*/
 class PCAddressPreview  {
 	constructor() {
 		//Empty Constructor
 	}
 
 	static  _generateRandomFloat(min,max,decimals) {
+		console.log("ca9uneasojcao _generateRandomFloat 1")
 		// Truly random
 		// https://gist.github.com/naomik/6030653
 		return parseFloat((Math.random() * (max - min) + min).toFixed(decimals));
 	}
 
 	static _randomPointWithInRadiusInMiles(centerGeo){
-
+		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 1")
 		// Lat is about 69 miles apart always
 		// Long are about 69 miles apart at the equator
 		// Long in 0 miles at the north pole
 		// https://www.thoughtco.com/degree-of-latitude-and-longitude-distance-4070616
 
 		const currentRadius = this._getRadius()
+		console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 2")
 		const aboutOneMileInDegrees = 1 / 69;
 		const radiusInDegrees = aboutOneMileInDegrees * currentRadius;
+		console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 3")
 
 		let randomGeo;
 		let distance;
@@ -30,22 +34,27 @@ class PCAddressPreview  {
 		// the 1/69 is an esimate so we check that
 		// the dot actually falls within the radius
 		do{
-
+			console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 4~ :" + radiusInDegrees)
 			const latDelta = PCAddressPreview._generateRandomFloat(-radiusInDegrees,radiusInDegrees,6);
+			console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 5~")
 			const longDelta = PCAddressPreview._generateRandomFloat(-radiusInDegrees,radiusInDegrees,6);
+			console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 6~")
 
 			const randLat = centerGeo.latitude + latDelta;
 			const randLong = centerGeo.longitude + longDelta;
-
+			console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 7~" + randLat)
 			randomGeo = new Parse.GeoPoint(randLat,randLong);
+			console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 8~")
 
 			distance = centerGeo.milesTo(randomGeo);
+			console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 9~")
 
 		}while(distance > currentRadius || distance < 0.02);
 
 		// Make sure the point in within the X mile radius
 		// and not within 0.02 miles (105.6 feet) of the house.
 		// (a spoof is usless if its right on the house)
+		console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 10~")
 		return randomGeo;
 	}
 	_save(result){
@@ -108,7 +117,9 @@ class PCAddressPreview  {
 				// eslint-disable-next-line no-console
 				console.log("ca9uneasojcao starting PCAddressPreview")
 				const spoof = new Parse.Object("PCAddressPreview")
-				const oneMileSpoof = PCAddressPreview._randomPointWithInRadiusInMiles(geo,this.radius);
+				// eslint-disable-next-line no-console
+				console.log("ca9uneasojcao PCAddressPreview 2")
+				const oneMileSpoof = PCAddressPreview._randomPointWithInRadiusInMiles(geo);
 				// eslint-disable-next-line no-console
 				console.log("ca9uneasojcao middle PCAddressPreview")
 				spoof.set("radiusInMiles", this._getRadius());

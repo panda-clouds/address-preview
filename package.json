@@ -5,6 +5,7 @@
     "jasmine": "^3.1.0"
   },
   "dependencies": {
+    "@panda-clouds/address-formatter": "^2.0.0",
     "@panda-clouds/geocoder": "^1.0.0"
   },
   "scripts": {

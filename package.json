@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@panda-clouds/address-formatter": "^2.0.0",
-    "@panda-clouds/geocoder": "^1.1.0"
+    "@panda-clouds/geocoder": "^1.2.0"
   },
   "scripts": {
     "pretest": "eslint .",

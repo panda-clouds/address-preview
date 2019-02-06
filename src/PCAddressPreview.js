@@ -153,6 +153,18 @@ class PCAddressPreview  {
 		return this.radius ? this.radius : 1; // default to 1 mile unless set
 	}
 
+	// primaryProviders are attemped before "free services"
+	primaryProviders(input){
+		// geo.primaryProviders( [{provider:"locationiq",apiKey:"abc123"},{provider:"google",apiKey:"def345"}] )
+		this.primaryProvidersArray = input;
+	}
+
+	// backupProviders are attemped after "free services"
+	backupProviders(input){
+		// geo.backupProviders( [{provider:"locationiq",apiKey:"abc123"},{provider:"google",apiKey:"def345"}] )
+		this.backupProvidersArray = input;
+	}
+
 	savePreview(){
 		// This function first tries to query our database to:
 		// 1. reduce the dependency on external geocoder API's
@@ -174,6 +186,9 @@ class PCAddressPreview  {
 				geo.state(this.state);
 				geo.country(this.country);
 				geo.zipcode(this.zipcode);
+				// forward provider info
+				if(this.primaryProvidersArray)geo.primaryProviders(this.primaryProvidersArray)
+				if(this.backupProvidersArray)geo.backupProviders(this.backupProvidersArray)
 				return geo.search()
 					.then((result)=>{
 						if(result){

@@ -1,5 +1,5 @@
 /*global Parse*/
-const PCJasmine = require("@panda-clouds/parse-jasmine")
+
 
 const PCAddressPreview = require("../src/PCAddressPreview.js");
 
@@ -96,6 +96,7 @@ describe('PCAddress.js', () => {
 
 
 	xdescribe('preview', () => {
+		const PCJasmine = require("@panda-clouds/parse-jasmine")
 		const parseRunner = new PCJasmine();
 		beforeAll((done) => {
 			// Set TESTING env variable if needed

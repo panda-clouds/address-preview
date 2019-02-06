@@ -57,7 +57,8 @@ class PCAddressPreview  {
 		// -- {"formattedAddress":"2753 E Windrose Dr, Phoenix, AZ 85032, United States","latitude":33.6025,"longitude":-112.02269,"country":"United States","countryCode":"US","state":"Arizona","county":"Maricopa","city":"Phoenix","zipcode":"85032","district":"North Phoenix","streetName":"E Windrose Dr","streetNumber":"2753","building":null,"extra":{"herePlaceId":"NT_K9IhbsLP54qz5bbKFLPjcA_ycTNzA","confidence":1},"administrativeLevels":{"level1long":"Arizona","level2long":"Maricopa"},"provider":"here"}
 		// -raw (Depends on the geocoder that delivered the results)
 		// -- [{"place_id":"203032233","licence":"Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright","osm_type":"way","osm_id":"5609650","boundingbox":["33.602592","33.602692","-112.022642","-112.022542"],"lat":"33.602642","lon":"-112.022592","display_name":"2753, East Windrose Drive, Phoenix, Maricopa County, Arizona, 85032, USA","class":"place","type":"house","importance":0.7409999999999999,"address":{"house_number":"2753","road":"East Windrose Drive","city":"Phoenix","county":"Maricopa County","state":"Arizona","postcode":"85032","country":"USA","country_code":"us"}}
-
+		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao beginning _save")
 		const shortState = PCAddressFormatter.state(result.address.state);
 
 		const cache = new Parse.Object("PCAddress");                        // convert "Arizona" to "AZ"
@@ -65,6 +66,7 @@ class PCAddressPreview  {
 		const geo = new Parse.GeoPoint(result.address.latitude,result.address.longitude);
 		if(this.nickname) cache.set("name",this.nickname);
 		cache.set("geoPoint",geo);                                          // (33.6025,-112.02269)
+		console.log("ca9uneasojcao middle _save after geo")
 		cache.set("streetNumber",result.address.streetNumber);              // "2753"
 		cache.set("streetName",result.address.streetName);
 		cache.set("street",result.address.street);                  // "E Windrose Dr"
@@ -74,6 +76,7 @@ class PCAddressPreview  {
 		cache.set("county",result.address.county)                           // "Maricopa"
 		cache.set("state",shortState);                                      // "AZ"
 		if(this.state !== shortState) cache.set("inputState",this.state);
+		console.log("ca9uneasojcao middle _save after state")
 		// cache.set("country",result.address.country);                     X  // "United States" We decided to use country code for less storage
 		cache.set("country",result.address.countryCode)                     // "US"
 		if(this.country !== result.address.countryCode) cache.set("inputCountry",this.country);
@@ -81,20 +84,29 @@ class PCAddressPreview  {
 		if(this.zipcode !== result.address.zipcode) cache.set("inputZipcode",this.zipcode);
 		cache.set("provider",result.address.provider);                      // "here"
 		// cache.set("formattedAddress",result.address.formattedAddress)    X   // "2753 E Windrose Dr, Phoenix, AZ 85032, United States" We decided to force manual formatting for less storage
-
+		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao ended _save")
 		return cache.save(null,this.permissions())
 			.then((address)=>{
+				// eslint-disable-next-line no-console
+				console.log("ca9uneasojcao starting PCAddressPreview")
 				const spoof = new Parse.Object("PCAddressPreview")
 				const oneMileSpoof = PCAddressPreview._randomPointWithInRadiusInMiles(geo,this.radius);
+				// eslint-disable-next-line no-console
+				console.log("ca9uneasojcao middle PCAddressPreview")
 				spoof.set("radiusInMiles", this._getRadius());
 				spoof.set("geoPoint",oneMileSpoof);
 				spoof.set("address",address.toPointer());
 				if(this.user) cache.set("creator",this.user)
+				// eslint-disable-next-line no-console
+				console.log("ca9uneasojcao end PCAddressPreview")
 				return spoof.save(null,this.permissions());
 			});
 	}
 
 	_searchCache(){
+		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao start _searchCache")
 		const query = new Parse.Query("PCAddressPreview");
 		query.equalTo('address.street',this.street);
 		query.equalTo('address.city',this.city);
@@ -103,6 +115,7 @@ class PCAddressPreview  {
 		query.equalTo('address.zipcode',this.zipcode);
 		query.equalTo("radiusInMiles",this.radius);
 		query.include("realAddress");
+		console.log("ca9uneasojcao end _searchCache")
 		return query.first(this.permissions());
 	}
 

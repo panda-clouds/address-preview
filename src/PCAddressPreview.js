@@ -60,7 +60,6 @@ class PCAddressPreview  {
 
 		const shortState = PCAddressFormatter.state(result.address.state);
 
-		const geoCoderStreet = result.address.streetNumber + ' ' + result.address.streetName;
 
 
 		const cache = new Parse.Object("PCAddress");                        // convert "Arizona" to "AZ"
@@ -69,8 +68,9 @@ class PCAddressPreview  {
 		if(this.nickname) cache.set("name",this.nickname);
 		cache.set("geoPoint",geo);                                          // (33.6025,-112.02269)
 		cache.set("streetNumber",result.address.streetNumber);              // "2753"
-		cache.set("streetName",result.address.streetName);                  // "E Windrose Dr"
-		if(this.street !== geoCoderStreet) cache.set("inputStreet",this.street);
+		cache.set("streetName",result.address.streetName); 
+		cache.set("street",result.address.street);                  // "E Windrose Dr"
+		if(this.street !== result.address.street) cache.set("inputStreet",this.street);
 		cache.set("city",result.address.city);                              // "Phoenix"
 		if(this.city !== result.address.city) cache.set("inputCity",this.city);
 		cache.set("county",result.address.county)                           // "Maricopa"

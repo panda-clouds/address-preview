@@ -66,6 +66,7 @@ class PCAddressPreview  {
 		const geo = new Parse.GeoPoint(result.address.latitude,result.address.longitude);
 		if(this.nickname) cache.set("name",this.nickname);
 		cache.set("geoPoint",geo);                                          // (33.6025,-112.02269)
+		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao middle _save after geo")
 		cache.set("streetNumber",result.address.streetNumber);              // "2753"
 		cache.set("streetName",result.address.streetName);
@@ -76,6 +77,7 @@ class PCAddressPreview  {
 		cache.set("county",result.address.county)                           // "Maricopa"
 		cache.set("state",shortState);                                      // "AZ"
 		if(this.state !== shortState) cache.set("inputState",this.state);
+		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao middle _save after state")
 		// cache.set("country",result.address.country);                     X  // "United States" We decided to use country code for less storage
 		cache.set("country",result.address.countryCode)                     // "US"
@@ -115,6 +117,7 @@ class PCAddressPreview  {
 		query.equalTo('address.zipcode',this.zipcode);
 		query.equalTo("radiusInMiles",this.radius);
 		query.include("realAddress");
+		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao end _searchCache")
 		return query.first(this.permissions());
 	}

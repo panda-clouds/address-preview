@@ -14,7 +14,7 @@
   },
   "name": "@panda-clouds/address-preview",
   "description": "Picks a random point from within a redius around an address",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/panda-clouds/address-preview.git"

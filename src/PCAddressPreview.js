@@ -58,14 +58,28 @@ class PCAddressPreview  {
 		// -raw (Depends on the geocoder that delivered the results)
 		// -- [{"place_id":"203032233","licence":"Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright","osm_type":"way","osm_id":"5609650","boundingbox":["33.602592","33.602692","-112.022642","-112.022542"],"lat":"33.602642","lon":"-112.022592","display_name":"2753, East Windrose Drive, Phoenix, Maricopa County, Arizona, 85032, USA","class":"place","type":"house","importance":0.7409999999999999,"address":{"house_number":"2753","road":"East Windrose Drive","city":"Phoenix","county":"Maricopa County","state":"Arizona","postcode":"85032","country":"USA","country_code":"us"}}
 		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao beginning pre check")
+		if(!result.address) return Parse.Promise.reject("Missing Address Object");
+		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao beginning _save")
-		const shortState = PCAddressFormatter.state(result.address.state);
-
-		const cache = new Parse.Object("PCAddress");                        // convert "Arizona" to "AZ"
+		let shortState;
+		console.log("ca9uneasojcao middle _save asdf")
+		if(result.address.state) shortState = PCAddressFormatter.state(result.address.state);
+		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao middle _save after state")
+		const cache = new Parse.Object("PCAddress");
+		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao middle _save after new Parse")                      // convert "Arizona" to "AZ"
 		if(this.user) cache.set("creator",this.user)
+		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao middle _save after user")
 		const geo = new Parse.GeoPoint(result.address.latitude,result.address.longitude);
+		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao middle _save after geo")
 		if(this.nickname) cache.set("name",this.nickname);
-		cache.set("geoPoint",geo);                                          // (33.6025,-112.02269)
+		// eslint-disable-next-line no-console
+		console.log("ca9uneasojcao middle _save before geo")
+		if(geo)cache.set("geoPoint",geo);                                          // (33.6025,-112.02269)
 		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao middle _save after geo")
 		cache.set("streetNumber",result.address.streetNumber);              // "2753"

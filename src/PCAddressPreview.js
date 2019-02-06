@@ -5,6 +5,8 @@ const PCAddressFormatter = require("@panda-clouds/address-formatter")
 class PCAddressPreview  {
 	constructor() {
 		//Empty Constructor
+		// default to 1 mile
+		this.radius = 1;
 	}
 
 	static  _generateRandomFloat(min,max,decimals) {
@@ -22,7 +24,7 @@ class PCAddressPreview  {
 		// Long in 0 miles at the north pole
 		// https://www.thoughtco.com/degree-of-latitude-and-longitude-distance-4070616
 
-		const currentRadius = this._getRadius()
+		const currentRadius = this.radius
 		console.log("ca9uneasojcao _randomPointWithInRadiusInMiles 2")
 		const aboutOneMileInDegrees = 1 / 69;
 		const radiusInDegrees = aboutOneMileInDegrees * currentRadius;
@@ -122,7 +124,7 @@ class PCAddressPreview  {
 				const oneMileSpoof = PCAddressPreview._randomPointWithInRadiusInMiles(geo);
 				// eslint-disable-next-line no-console
 				console.log("ca9uneasojcao middle PCAddressPreview")
-				spoof.set("radiusInMiles", this._getRadius());
+				spoof.set("radiusInMiles", this.radius);
 				spoof.set("geoPoint",oneMileSpoof);
 				spoof.set("address",address.toPointer());
 				if(this.user) cache.set("creator",this.user)
@@ -189,10 +191,6 @@ class PCAddressPreview  {
 		if(input > 99999) throw new Error("Please specifiy a number less than 999 miles")
 		if(input < 0.05) throw new Error("Please specifiy a number greater than 0.05 miles (264' is only 4-6 houses)")
 		this.radius = input;
-	}
-
-	_getRadius(){
-		return this.radius ? this.radius : 1; // default to 1 mile unless set
 	}
 
 	// primaryProviders are attemped before "free services"

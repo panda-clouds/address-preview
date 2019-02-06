@@ -5,6 +5,10 @@
 
 ### 0.9.0
 
+- set radius default to 1 mile
+
+### 0.9.0
+
 - added logs
 
 ### 0.8.0

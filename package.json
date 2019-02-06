@@ -4,7 +4,9 @@
     "eslint-plugin-jasmine": "^2.10.1",
     "jasmine": "^3.1.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@panda-clouds/geocoder": "^1.0.0"
+  },
   "scripts": {
     "pretest": "eslint .",
     "test": "jasmine ./spec/*.spec.js"
@@ -16,10 +18,11 @@
     "type": "git",
     "url": "https://github.com/panda-clouds/address-preview.git"
   },
-  "author": { "name" : "Marc Smith",
-              "email" : "mr.marcsmith@me.com",
-              "url" : "https://github.com/mrmarcsmith"
-            },
+  "author": {
+    "name": "Marc Smith",
+    "email": "mr.marcsmith@me.com",
+    "url": "https://github.com/mrmarcsmith"
+  },
   "license": "MIT",
   "main": "src/PCAddressPreview.js",
   "engines": {

@@ -17,7 +17,6 @@ describe('PCAddress.js', () => {
 			for (var i = 0; i < iterations; i++) {
 
 				const result = PCAddressPreview._generateRandomFloat(0,2,6);
-				expect(result).toBeNumber();
 				expect(result).not.toBeLessThan(0);
 				expect(result).not.toBeGreaterThan(2);
 				expect(result.lenth).toBe();
@@ -59,7 +58,6 @@ describe('PCAddress.js', () => {
 			for (var i = 0; i < iterations; i++) {
 
 				const result = PCAddressPreview._generateRandomFloat(-2,2,6);
-				expect(result).toBeNumber();
 
 				expect(result).not.toBeLessThan(-2);
 				expect(result).not.toBeGreaterThan(2);
@@ -96,19 +94,19 @@ describe('PCAddress.js', () => {
 
 
 	xdescribe('preview', () => {
-		const PCJasmine = require("@panda-clouds/parse-jasmine")
-		const parseRunner = new PCJasmine();
-		beforeAll((done) => {
+		// const PCJasmine = require("@panda-clouds/parse-jasmine")
+		// const parseRunner = new PCJasmine();
+		beforeAll(() => {
 			// Set TESTING env variable if needed
 			// process.env.TESTING = true;
-			parseRunner.startParseServerForMMjs()
-				.then(done).catch(done.fail);
+			// parseRunner.startParseServerForMMjs()
+			// .then(done).catch(done.fail);
 		}, 1000 * 60 * 2);
 
 		// Keep the database throughout the test
-		afterAll((done) => {
-			parseRunner.cleanUp()
-				.then(done).catch(done.fail);
+		afterAll(() => {
+			// parseRunner.cleanUp()
+			// .then(done).catch(done.fail);
 		});
 
 		it('should geocode an address', (done) => {

@@ -1,14 +1,23 @@
+/* eslint-disable no-console*/
+console.log("aoncsdcoasxasoc before parse" + process.env.NODE_ENV)
 if(typeof Parse === 'undefined'){
+	console.log("aoncsdcoasxasoc Parse is undefined")
+}
+var env = process.env.NODE_ENV || 'dev';
+if(env === 'dev'){
 	// prevent a "re-require" of Parse
 	// to avoid "You need to call Parse.initialize before using Parse."
+	console.log("aoncsdcoasxasoc Parse is DEV")
 	var Parse = require("parse/node")
 }
+
+console.log("aoncsdcoasxasoc after Parse")
 const PCGeocoder = require("@panda-clouds/geocoder")
 const PCAddressFormatter = require("@panda-clouds/address-formatter")
 
 const defaultRadius = 1;
 
-/* eslint-disable no-console*/
+
 class PCAddressPreview  {
 	constructor() {
 		//Empty Constructor

@@ -3,6 +3,10 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 0.10.1
+
+- fixed "this." in static function
+
 ### 0.9.0
 
 - set radius default to 1 mile

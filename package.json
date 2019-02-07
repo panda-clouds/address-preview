@@ -6,7 +6,8 @@
   },
   "dependencies": {
     "@panda-clouds/address-formatter": "^2.0.0",
-    "@panda-clouds/geocoder": "^1.4.0"
+    "@panda-clouds/geocoder": "^1.4.0",
+    "parse": "^2.1.0"
   },
   "scripts": {
     "pretest": "eslint .",
@@ -14,7 +15,7 @@
   },
   "name": "@panda-clouds/address-preview",
   "description": "Picks a random point from within a redius around an address",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/panda-clouds/address-preview.git"

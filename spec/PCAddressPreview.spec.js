@@ -1,6 +1,4 @@
-/*global Parse*/
-
-
+var Parse = require("parse/node")
 const PCAddressPreview = require("../src/PCAddressPreview.js");
 
 describe('PCAddress.js', () => {
@@ -90,6 +88,52 @@ describe('PCAddress.js', () => {
 
 		});
 
+	});
+
+
+	describe('_randomPointWithInRadiusInMiles', () => {
+
+		it('should randomize 1341 W 10th Place with no radius', () => {
+			for(var x = 0; x < 500; x++) {
+				const preview = new PCAddressPreview();
+				preview.street('1341 W 10th Place');
+				preview.city("Tempe");
+				preview.state("AZ");
+				preview.country("US");
+				preview.zipcode("85281");
+
+				// Bamboozle up a Geo-Point
+				const knownHouseGeo = new Parse.GeoPoint(33.417847, -111.960097);
+				const spoofGeo = PCAddressPreview._randomPointWithInRadiusInMiles(knownHouseGeo);
+
+				const spoofDelta = knownHouseGeo.milesTo(spoofGeo);
+				// the spoof geo should be within 1 mile of our house
+				expect(spoofDelta).not.toBeLessThan(0.02);
+				expect(spoofDelta).not.toBeGreaterThan(1);
+			}
+
+
+		});
+
+		it('should randomize 1341 W 10th Place with 2 mile radius', () => {
+			for(var x = 0; x < 500; x++) {
+				const preview = new PCAddressPreview();
+				preview.street('1341 W 10th Place');
+				preview.city("Tempe");
+				preview.state("AZ");
+				preview.country("US");
+				preview.zipcode("85281");
+
+				// Bamboozle up a Geo-Point
+				const knownHouseGeo = new Parse.GeoPoint(33.417847, -111.960097);
+				const spoofGeo = PCAddressPreview._randomPointWithInRadiusInMiles(knownHouseGeo,100);
+
+				const spoofDelta = knownHouseGeo.milesTo(spoofGeo);
+				// the spoof geo should be within 1 mile of our house
+				expect(spoofDelta).not.toBeLessThan(0.02);
+				expect(spoofDelta).not.toBeGreaterThan(100);
+			}
+		});
 	});
 
 

@@ -3,6 +3,10 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 0.10.3
+
+- removed var Parse = ... in PCAddressPreview
+
 ### 0.10.2
 
 - moved parse dependency to "dev"

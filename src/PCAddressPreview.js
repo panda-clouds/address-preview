@@ -1,4 +1,4 @@
-var Parse = require("parse/node")
+
 const PCGeocoder = require("@panda-clouds/geocoder")
 const PCAddressFormatter = require("@panda-clouds/address-formatter")
 

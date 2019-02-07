@@ -1,4 +1,8 @@
-/* global Parse */
+if(typeof Parse === 'undefined'){
+	// prevent a "re-require" of Parse
+	// to avoid "You need to call Parse.initialize before using Parse."
+	var Parse = require("parse/node")
+}
 const PCGeocoder = require("@panda-clouds/geocoder")
 const PCAddressFormatter = require("@panda-clouds/address-formatter")
 

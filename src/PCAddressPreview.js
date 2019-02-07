@@ -1,4 +1,4 @@
-
+/* global Parse */
 const PCGeocoder = require("@panda-clouds/geocoder")
 const PCAddressFormatter = require("@panda-clouds/address-formatter")
 

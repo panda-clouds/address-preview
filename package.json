@@ -2,12 +2,12 @@
   "devDependencies": {
     "eslint": "^4.18.1",
     "eslint-plugin-jasmine": "^2.10.1",
-    "jasmine": "^3.3.1"
+    "jasmine": "^3.3.1",
+    "parse": "^2.1.0"
   },
   "dependencies": {
     "@panda-clouds/address-formatter": "^2.0.0",
-    "@panda-clouds/geocoder": "^1.4.0",
-    "parse": "^2.1.0"
+    "@panda-clouds/geocoder": "^1.4.0"
   },
   "scripts": {
     "pretest": "eslint .",
@@ -15,7 +15,7 @@
   },
   "name": "@panda-clouds/address-preview",
   "description": "Picks a random point from within a redius around an address",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/panda-clouds/address-preview.git"

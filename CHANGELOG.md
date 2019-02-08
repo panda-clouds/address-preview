@@ -3,6 +3,10 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 0.10.5
+
+- added Parse Jasmine unit tests
+
 ### 0.10.4
 
 - testing NODE_ENV

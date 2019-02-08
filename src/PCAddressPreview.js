@@ -1,17 +1,7 @@
-/* eslint-disable no-console*/
-console.log("aoncsdcoasxasoc before parse" + process.env.NODE_ENV)
-if(typeof Parse === 'undefined'){
-	console.log("aoncsdcoasxasoc Parse is undefined")
-}
-var env = process.env.NODE_ENV || 'dev';
-if(env === 'dev'){
-	// prevent a "re-require" of Parse
-	// to avoid "You need to call Parse.initialize before using Parse."
-	console.log("aoncsdcoasxasoc Parse is DEV")
-	var Parse = require("parse/node")
-}
 
-console.log("aoncsdcoasxasoc after Parse")
+var Parse = require("parse/node")
+/* eslint-disable no-console*/
+
 const PCGeocoder = require("@panda-clouds/geocoder")
 const PCAddressFormatter = require("@panda-clouds/address-formatter")
 
@@ -141,15 +131,23 @@ class PCAddressPreview  {
 
 	_searchCache(){
 		// eslint-disable-next-line no-console
-		console.log("ca9uneasojcao start _searchCache")
+		console.log("ca9uneasojcao start _searchCache 55 " + this.street)
+		console.log("ca9uneasojcao start _searchCache 55 " + this.city)
+		console.log("ca9uneasojcao start _searchCache 55 " + this.state)
+		console.log("ca9uneasojcao start _searchCache 55 " + this.country)
+		console.log("ca9uneasojcao start _searchCache 55 " + this.zipcode)
+
+		var innerQuery = new Parse.Query('PCAddress');
+		innerQuery.equalTo('street',this.street);
+		innerQuery.equalTo('city',this.city);
+		innerQuery.equalTo('state',this.state);
+		innerQuery.equalTo('country',this.country);
+		innerQuery.equalTo('zipcode',this.zipcode);
+
 		const query = new Parse.Query("PCAddressPreview");
-		query.equalTo('address.street',this.street);
-		query.equalTo('address.city',this.city);
-		query.equalTo('address.state',this.state);
-		query.equalTo('address.country',this.country);
-		query.equalTo('address.zipcode',this.zipcode);
+		query.matchesQuery("address", innerQuery);
 		query.equalTo("radiusInMiles",this.radius);
-		query.include("realAddress");
+		query.include("address");
 		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao end _searchCache")
 		return query.first(this.permissions());
@@ -187,7 +185,7 @@ class PCAddressPreview  {
 
 	permissions(){
 		const permDic = {};
-		if(this.user) permDic.sessionToken = this.user.getSessionToken();
+		if(this.user && this.user.getSessionToken) permDic.sessionToken = this.user.getSessionToken();
 		return permDic;
 	}
 

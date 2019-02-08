@@ -1,5 +1,5 @@
 
-var Parse = require("parse/node")
+var TestingParse = require("parse/node")
 /* eslint-disable no-console*/
 
 const PCGeocoder = require("@panda-clouds/geocoder")
@@ -14,7 +14,46 @@ class PCAddressPreview  {
 		// default to 1 mile
 		this.radius = defaultRadius;
 	}
-
+	static Object(className){
+		if(typeof Parse !== 'undefined'){
+			console.log("9uncw9dnajksdx in REAL Parse.Object")
+			/* global Parse */
+			return new Parse.Object(className);
+		}else{
+			console.log("9uncw9dnajksdx in Testing Parse.Object")
+			return new TestingParse.Object(className);
+		}
+	}
+	static Query(className){
+		if(typeof Parse !== 'undefined'){
+			console.log("9uncw9dnajksdx in REAL Parse.Query")
+			/* global Parse */
+			return new Parse.Query(className);
+		}else{
+			console.log("9uncw9dnajksdx in Testing Parse.Query")
+			return new TestingParse.Query(className);
+		}
+	}
+	static GeoPoint(lat,long){
+		if(typeof Parse !== 'undefined'){
+			console.log("9uncw9dnajksdx in REAL Parse.geo")
+			/* global Parse */
+			return new Parse.GeoPoint(lat,long);
+		}else{
+			console.log("9uncw9dnajksdx in Testing Parse.geo")
+			return new TestingParse.GeoPoint(lat,long);
+		}
+	}
+	static bestParse(){
+		if(typeof Parse !== 'undefined'){
+			console.log("9uncw9dnajksdx in REAL Parse")
+			/* global Parse */
+			return Parse;
+		}else{
+			console.log("9uncw9dnajksdx in Testing Parse")
+			return TestingParse;
+		}
+	}
 	static  _generateRandomFloat(min,max,decimals) {
 		// Truly random
 		// https://gist.github.com/naomik/6030653
@@ -43,7 +82,7 @@ class PCAddressPreview  {
 
 			const randLat = centerGeo.latitude + latDelta;
 			const randLong = centerGeo.longitude + longDelta;
-			randomGeo = new Parse.GeoPoint(randLat,randLong);
+			randomGeo = PCAddressPreview.GeoPoint(randLat,randLong);
 
 			distance = centerGeo.milesTo(randomGeo);
 
@@ -65,7 +104,7 @@ class PCAddressPreview  {
 		// -- [{"place_id":"203032233","licence":"Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright","osm_type":"way","osm_id":"5609650","boundingbox":["33.602592","33.602692","-112.022642","-112.022542"],"lat":"33.602642","lon":"-112.022592","display_name":"2753, East Windrose Drive, Phoenix, Maricopa County, Arizona, 85032, USA","class":"place","type":"house","importance":0.7409999999999999,"address":{"house_number":"2753","road":"East Windrose Drive","city":"Phoenix","county":"Maricopa County","state":"Arizona","postcode":"85032","country":"USA","country_code":"us"}}
 		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao beginning pre check")
-		if(!result.address) return Parse.Promise.reject("Missing Address Object");
+		if(!result.address) return PCAddressPreview.bestParse().Promise.reject("Missing Address Object");
 		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao beginning _save")
 		let shortState;
@@ -74,13 +113,13 @@ class PCAddressPreview  {
 		if(result.address.state) shortState = PCAddressFormatter.state(result.address.state);
 		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao middle _save after state")
-		const cache = new Parse.Object("PCAddress");
+		const cache = PCAddressPreview.Object("PCAddress");
 		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao middle _save after new Parse")                      // convert "Arizona" to "AZ"
 		if(this.user) cache.set("creator",this.user)
 		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao middle _save after user")
-		const geo = new Parse.GeoPoint(result.address.latitude,result.address.longitude);
+		const geo = PCAddressPreview.GeoPoint(result.address.latitude,result.address.longitude);
 		// eslint-disable-next-line no-console
 		console.log("ca9uneasojcao middle _save after geo")
 		if(this.nickname) cache.set("name",this.nickname);
@@ -113,7 +152,7 @@ class PCAddressPreview  {
 			.then((address)=>{
 				// eslint-disable-next-line no-console
 				console.log("ca9uneasojcao starting PCAddressPreview")
-				const spoof = new Parse.Object("PCAddressPreview")
+				const spoof = PCAddressPreview.Object("PCAddressPreview")
 				// eslint-disable-next-line no-console
 				console.log("ca9uneasojcao PCAddressPreview 2")
 				const oneMileSpoof = PCAddressPreview._randomPointWithInRadiusInMiles(geo,this.radius);
@@ -137,14 +176,14 @@ class PCAddressPreview  {
 		console.log("ca9uneasojcao start _searchCache 55 " + this.country)
 		console.log("ca9uneasojcao start _searchCache 55 " + this.zipcode)
 
-		var innerQuery = new Parse.Query('PCAddress');
+		var innerQuery = PCAddressPreview.Query('PCAddress');
 		innerQuery.equalTo('street',this.street);
 		innerQuery.equalTo('city',this.city);
 		innerQuery.equalTo('state',this.state);
 		innerQuery.equalTo('country',this.country);
 		innerQuery.equalTo('zipcode',this.zipcode);
 
-		const query = new Parse.Query("PCAddressPreview");
+		const query = PCAddressPreview.Query("PCAddressPreview");
 		query.matchesQuery("address", innerQuery);
 		query.equalTo("radiusInMiles",this.radius);
 		query.include("address");
@@ -242,7 +281,7 @@ class PCAddressPreview  {
 									return this._searchCache();
 								})
 						}else{
-							return Parse.Promise.error("We couldn't find that address");
+							return PCAddressPreview.bestParse().Promise.error("We couldn't find that address");
 						}
 					})
 

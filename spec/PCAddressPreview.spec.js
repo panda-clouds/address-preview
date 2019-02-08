@@ -1,4 +1,4 @@
-var Parse = require("parse/node")
+
 
 const PCAddressPreview = require("../src/PCAddressPreview.js");
 const PCParseJasmine = require("@panda-clouds/parse-jasmine")
@@ -123,7 +123,7 @@ describe('PCAddress.js', () => {
 				preview.zipcode("85281");
 
 				// Bamboozle up a Geo-Point
-				const knownHouseGeo = new Parse.GeoPoint(33.417847, -111.960097);
+				const knownHouseGeo = PCAddressPreview.GeoPoint(33.417847, -111.960097);
 				const spoofGeo = PCAddressPreview._randomPointWithInRadiusInMiles(knownHouseGeo);
 
 				const spoofDelta = knownHouseGeo.milesTo(spoofGeo);
@@ -145,7 +145,7 @@ describe('PCAddress.js', () => {
 				preview.zipcode("85281");
 
 				// Bamboozle up a Geo-Point
-				const knownHouseGeo = new Parse.GeoPoint(33.417847, -111.960097);
+				const knownHouseGeo = PCAddressPreview.GeoPoint(33.417847, -111.960097);
 				const spoofGeo = PCAddressPreview._randomPointWithInRadiusInMiles(knownHouseGeo,100);
 
 				const spoofDelta = knownHouseGeo.milesTo(spoofGeo);
@@ -200,7 +200,7 @@ describe('PCAddress.js', () => {
 							expect(result.id.length).toBe(10);
 							spoofId = result.id;
 
-							const knownHouseGeo = new Parse.GeoPoint(knownLat, knownLong);
+							const knownHouseGeo = PCAddressPreview.GeoPoint(knownLat, knownLong);
 							const spoof = result.get("geoPoint");
 							expect(spoof).toBeDefined();
 
@@ -245,7 +245,7 @@ describe('PCAddress.js', () => {
 							expect(result.id.length).toBe(10);
 							// ensures the cache was used
 							expect(result.id).toBe(spoofId);
-							const knownHouseGeo = new Parse.GeoPoint(knownLat, knownLong);
+							const knownHouseGeo = PCAddressPreview.GeoPoint(knownLat, knownLong);
 							const spoof = result.get("geoPoint");
 							expect(spoof).toBeDefined();
 
@@ -317,7 +317,7 @@ describe('PCAddress.js', () => {
 							expect(result.id.length).toBe(10);
 							spoofId = result.id;
 
-							const knownHouseGeo = new Parse.GeoPoint(knownLat, knownLong);
+							const knownHouseGeo = PCAddressPreview.GeoPoint(knownLat, knownLong);
 							const spoof = result.get("geoPoint");
 							expect(spoof).toBeDefined();
 
@@ -362,7 +362,7 @@ describe('PCAddress.js', () => {
 							expect(result.id.length).toBe(10);
 							// ensures the cache was used
 							expect(result.id).toBe(spoofId);
-							const knownHouseGeo = new Parse.GeoPoint(knownLat, knownLong);
+							const knownHouseGeo = PCAddressPreview.GeoPoint(knownLat, knownLong);
 							const spoof = result.get("geoPoint");
 							expect(spoof).toBeDefined();
 
@@ -434,7 +434,7 @@ describe('PCAddress.js', () => {
 							expect(result.id.length).toBe(10);
 							spoofId = result.id;
 
-							const knownHouseGeo = new Parse.GeoPoint(knownLat, knownLong);
+							const knownHouseGeo = PCAddressPreview.GeoPoint(knownLat, knownLong);
 							const spoof = result.get("geoPoint");
 							expect(spoof).toBeDefined();
 
@@ -479,7 +479,7 @@ describe('PCAddress.js', () => {
 							expect(result.id.length).toBe(10);
 							// ensures the cache was used
 							expect(result.id).toBe(spoofId);
-							const knownHouseGeo = new Parse.GeoPoint(knownLat, knownLong);
+							const knownHouseGeo = PCAddressPreview.GeoPoint(knownLat, knownLong);
 							const spoof = result.get("geoPoint");
 							expect(spoof).toBeDefined();
 
@@ -514,7 +514,7 @@ describe('PCAddress.js', () => {
 
 			Promise.resolve()
 				.then(()=>{
-					var query = new Parse.Query('PCAddress');
+					var query = PCAddressPreview.Query('PCAddress');
 
 					return query.find()
 						.then((result)=>{
@@ -526,7 +526,7 @@ describe('PCAddress.js', () => {
 						})
 				})
 				.then(()=>{
-					var query = new Parse.Query('PCAddressPreview');
+					var query = PCAddressPreview.Query('PCAddressPreview');
 
 					return query.find()
 						.then((result)=>{

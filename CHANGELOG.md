@@ -3,6 +3,10 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 0.11.0
+
+- added useMasterKey and limit query to "user"
+
 ### 0.10.6
 
 - added runtime switching between prod and testing parse

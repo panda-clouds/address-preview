@@ -180,6 +180,12 @@ describe('PCAddress.js', () => {
 			const closeEnoughLat = 33.417;
 			const closeEnoughLong = -111.959;
 
+			const user = {
+				"__type": "Pointer",
+				"className": "_User",
+				"objectId": "abc123"
+			}
+
 			Promise.resolve()
 				.then(()=>{
 					// check that caches results are the same
@@ -189,6 +195,7 @@ describe('PCAddress.js', () => {
 					address.state(state1);
 					address.country(country1);
 					address.zipcode(zipcode1);
+					address.user(user);
 					// address.previewRadius(1); default
 
 					return address.savePreview()
@@ -234,6 +241,7 @@ describe('PCAddress.js', () => {
 					address.state(state2);
 					address.country(country2);
 					address.zipcode(zipcode2);
+					address.user(user);
 					// address.previewRadius(1); default
 
 					return address.savePreview()

@@ -16,41 +16,33 @@ class PCAddressPreview  {
 	}
 	static Object(className){
 		if(typeof Parse !== 'undefined'){
-			console.log("9uncw9dnajksdx in REAL Parse.Object")
 			/* global Parse */
 			return new Parse.Object(className);
 		}else{
-			console.log("9uncw9dnajksdx in Testing Parse.Object")
 			return new TestingParse.Object(className);
 		}
 	}
 	static Query(className){
 		if(typeof Parse !== 'undefined'){
-			console.log("9uncw9dnajksdx in REAL Parse.Query")
 			/* global Parse */
 			return new Parse.Query(className);
 		}else{
-			console.log("9uncw9dnajksdx in Testing Parse.Query")
 			return new TestingParse.Query(className);
 		}
 	}
 	static GeoPoint(lat,long){
 		if(typeof Parse !== 'undefined'){
-			console.log("9uncw9dnajksdx in REAL Parse.geo")
 			/* global Parse */
 			return new Parse.GeoPoint(lat,long);
 		}else{
-			console.log("9uncw9dnajksdx in Testing Parse.geo")
 			return new TestingParse.GeoPoint(lat,long);
 		}
 	}
 	static bestParse(){
 		if(typeof Parse !== 'undefined'){
-			console.log("9uncw9dnajksdx in REAL Parse")
 			/* global Parse */
 			return Parse;
 		}else{
-			console.log("9uncw9dnajksdx in Testing Parse")
 			return TestingParse;
 		}
 	}
@@ -182,6 +174,7 @@ class PCAddressPreview  {
 		innerQuery.equalTo('state',this.state);
 		innerQuery.equalTo('country',this.country);
 		innerQuery.equalTo('zipcode',this.zipcode);
+		innerQuery.equalTo('creator',this.user);
 
 		const query = PCAddressPreview.Query("PCAddressPreview");
 		query.matchesQuery("address", innerQuery);
@@ -221,9 +214,13 @@ class PCAddressPreview  {
 		this.user = input;
 	}
 
+	useMasterKey(input){
+		this.useMasterKeyBoolean = input;
+	}
 
 	permissions(){
 		const permDic = {};
+		if(this.useMasterKeyBoolean) permDic.useMasterKey = this.useMasterKeyBoolean;
 		if(this.user && this.user.getSessionToken) permDic.sessionToken = this.user.getSessionToken();
 		return permDic;
 	}

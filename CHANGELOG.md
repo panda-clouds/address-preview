@@ -3,6 +3,11 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 0.12.0
+
+- bumped formatter to 2.2.1
+- removed logs
+
 ### 0.11.0
 
 - added useMasterKey and limit query to "user"

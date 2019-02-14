@@ -117,11 +117,10 @@ class PCAddressPreview  {
 		cache.set("country",result.address.countryCode)                     // "US"
 		if(this.country !== result.address.countryCode) cache.set("inputCountry",this.country);
 
-		
 		const zipOnly = PCAddressFormatter.zipcode(result.address.zipcode);
 		if(!this.plusFour){
-			// the user didn't input it, 
-			// lets see if the provider returned it? 
+			// the user didn't input it,
+			// lets see if the provider returned it?
 			// mapquest and sometimes openstreetmap return the +4
 			this.plusFour = PCAddressFormatter.plusFour(result.address.zipcode);
 		}

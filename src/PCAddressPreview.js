@@ -100,6 +100,9 @@ class PCAddressPreview  {
 		if(this.user) cache.set("creator",this.user)
 		const geo = PCAddressPreview.GeoPoint(result.address.latitude,result.address.longitude);
 		if(this.nickname) cache.set("name",this.nickname);
+		if(this.notes) cache.set("notes",this.notes);
+		if(this.gateCode) cache.set("gateCode",this.gateCode);
+		if(this.unit) cache.set("unit",this.unit);
 		if(geo)cache.set("geoPoint",geo);                                          // (33.6025,-112.02269)
 		cache.set("streetNumber",result.address.streetNumber);              // "2753"
 		cache.set("streetName",result.address.streetName);
@@ -113,8 +116,18 @@ class PCAddressPreview  {
 		// cache.set("country",result.address.country);                     X  // "United States" We decided to use country code for less storage
 		cache.set("country",result.address.countryCode)                     // "US"
 		if(this.country !== result.address.countryCode) cache.set("inputCountry",this.country);
-		cache.set("zipcode",result.address.zipcode);                        // "85032"
-		if(this.zipcode !== result.address.zipcode) cache.set("inputZipcode",this.zipcode);
+
+		
+		const zipOnly = PCAddressFormatter.zipcode(result.address.zipcode);
+		if(!this.plusFour){
+			// the user didn't input it, 
+			// lets see if the provider returned it? 
+			// mapquest and sometimes openstreetmap return the +4
+			this.plusFour = PCAddressFormatter.plusFour(result.address.zipcode);
+		}
+		cache.set("zipcode",zipOnly);                        // "85032"
+		if(this.zipcode !== zipOnly) cache.set("inputZipcode",this.zipcode);
+		if(this.plusFour) cache.set("plusFour",this.plusFour);
 		cache.set("provider",result.address.provider);                      // "here"
 		// cache.set("formattedAddress",result.address.formattedAddress)    X   // "2753 E Windrose Dr, Phoenix, AZ 85032, United States" We decided to force manual formatting for less storage
 		return cache.save(null,this.permissions())
@@ -124,7 +137,7 @@ class PCAddressPreview  {
 				spoof.set("radiusInMiles", this.radius);
 				spoof.set("geoPoint",oneMileSpoof);
 				spoof.set("address",address.toPointer());
-				if(this.user) cache.set("creator",this.user)
+				if(this.user) spoof.set("creator",this.user)
 				return spoof.save(null,this.permissions());
 			});
 	}
@@ -150,8 +163,26 @@ class PCAddressPreview  {
 		this.nickname = input;
 	}
 
+	notes(input) {
+		this.notes = input;
+	}
+
+	gateCode(input) {
+		this.gateCode = input;
+	}
+
+	plusFour(input) {
+		this.plusFour = input;
+	}
+
+	unit(input) {
+		this.unit = input;
+	}
+
 	street(input) {
 		this.street = PCAddressFormatter.street(input);
+		const maybeUnit = PCAddressFormatter.unit(input);
+		if(maybeUnit) this.unit = maybeUnit;
 	}
 
 	city(input) {
@@ -168,6 +199,8 @@ class PCAddressPreview  {
 
 	zipcode(input) {
 		this.zipcode = PCAddressFormatter.zipcode(input);
+		const maybePlusFour = PCAddressFormatter.plusFour(input);
+		if(maybePlusFour) this.plusFour = maybePlusFour;
 	}
 
 	// addr.user(request.user)

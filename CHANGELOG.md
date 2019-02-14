@@ -3,6 +3,16 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 0.15.0
+
+- fixed bug where creator wouldn't be saved in preview
+- bumped geocoder to 1.7
+- bumped foramtter to 2.4.0
+- added 'notes' property
+- added 'gateCode' property
+- added 'unit' property
+- added 'plusFour' property
+
 ### 0.14.0
 
 - bumped geocoder to 1.6.0

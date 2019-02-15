@@ -3,6 +3,11 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 0.16.0
+
+- bumped geocoder to 1.8.0
+- bumped formatter to 2.4.1
+
 ### 0.15.0
 
 - fixed bug where creator wouldn't be saved in preview

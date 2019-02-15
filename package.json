@@ -6,8 +6,8 @@
     "parse": "^2.1.0"
   },
   "dependencies": {
-    "@panda-clouds/address-formatter": "^2.4.0",
-    "@panda-clouds/geocoder": "^1.7.0",
+    "@panda-clouds/address-formatter": "^2.4.1",
+    "@panda-clouds/geocoder": "^1.8.0",
     "@panda-clouds/parse-jasmine": "^0.1.0"
   },
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "name": "@panda-clouds/address-preview",
   "description": "Picks a random point from within a redius around an address",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/panda-clouds/address-preview.git"

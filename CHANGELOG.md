@@ -2,6 +2,9 @@
 
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
+### 0.16.1
+- bumped formatter to 2.4.2
+- bumped geocoder to 1.8.1
 
 ### 0.16.0
 

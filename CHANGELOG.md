@@ -2,7 +2,13 @@
 
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
+
+### 0.17.0
+- added zipcode and city to spoof
+- bumped geocoder to 1.9.0
+
 ### 0.16.1
+
 - bumped formatter to 2.4.2
 - bumped geocoder to 1.8.1
 

@@ -136,6 +136,8 @@ class PCAddressPreview  {
 				spoof.set("radiusInMiles", this.radius);
 				spoof.set("geoPoint",oneMileSpoof);
 				spoof.set("address",address.toPointer());
+				spoof.set("city",result.address.city);
+				spoof.set("zipcode",zipOnly);
 				if(this.user) spoof.set("creator",this.user)
 				return spoof.save(null,this.permissions());
 			});

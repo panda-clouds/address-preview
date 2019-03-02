@@ -3,11 +3,19 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 0.19.0
+
+- moved from parse-jasmine to parse-runner
+- linted to conform to Panda Clouds config
+- moved from jasmine to jest
+
 ### 0.18.0
+
 - added zipcode and city to spoof
 - bumped geocoder to 1.10.0
 
 ### 0.17.0
+
 - added zipcode and city to spoof
 - bumped geocoder to 1.9.0
 
